@@ -7,14 +7,19 @@ import static org.junit.Assert.*;
 
 public class NameRepositoryTest {
 
+    private String[] data;
+
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         NameRepository.clear();
+        String[] starterData = {"Basel Askar", "Fabrice Badia", "Erik Alfredsson", "Tony Granath"};
+        data = starterData;
+        NameRepository.setNames(starterData);
     }
 
     @Test
     public void getSize() {
-        int expectedSize = 0;
+        int expectedSize = 4;
         int actual = NameRepository.getSize();
 
         assertEquals(actual, expectedSize);
@@ -22,6 +27,7 @@ public class NameRepositoryTest {
 
     @Test
     public void setNames() {
+        NameRepository.clear();
         String[] data = {"Erik Svensson", "Sofia Örnberg"};
         int expectedSize = 2;
 
@@ -32,8 +38,6 @@ public class NameRepositoryTest {
 
     @Test
     public void clear() {
-        String[] data = {"Erik Svensson", "Sofia Örnberg"};
-        NameRepository.setNames(data);
         int expectedSize = 0;
 
         NameRepository.clear();
@@ -43,12 +47,36 @@ public class NameRepositoryTest {
 
     @Test
     public void findAll() {
-        String[] expected = {"Erik Svensson", "Sofia Örnberg"};
+        String[] expected = data;
 
         NameRepository.setNames(expected);
 
         String[] result = NameRepository.findAll();
 
         assertArrayEquals(result, expected);
+    }
+
+    @Test
+    public void find() {
+        String fullName = "fabrice badia";
+        String expected = "Fabrice Badia";
+
+        String result = NameRepository.find(fullName);
+
+        assertEquals(result, expected);
+    }
+
+    @Test
+    public void add() {
+        String fullName = "Sauda Ahmed";
+        assertTrue(NameRepository.add(fullName));
+        assertEquals(5, NameRepository.getSize());
+    }
+
+    @Test
+    public void add_false(){
+        String fullName = "basel askar";
+        assertFalse(NameRepository.add(fullName));
+        assertEquals(4, NameRepository.getSize());
     }
 }

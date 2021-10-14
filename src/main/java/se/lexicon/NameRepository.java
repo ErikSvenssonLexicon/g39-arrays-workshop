@@ -22,4 +22,37 @@ public class NameRepository {
         return Arrays.copyOf(names, names.length);
     }
 
+    public static String find(final String fullName){
+        for(String s : names){
+            if(s.equalsIgnoreCase(fullName)){
+                return s;
+            }
+        }
+        return null;
+    }
+
+    public static boolean add(final String fullName){
+        if(find(fullName) != null){
+            return false;
+        }
+        String[] temp = Arrays.copyOf(names, names.length + 1);
+        temp[temp.length-1] = fullName;
+        names = temp;
+        return true;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
