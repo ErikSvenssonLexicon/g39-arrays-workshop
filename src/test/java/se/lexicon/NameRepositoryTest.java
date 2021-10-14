@@ -33,6 +33,7 @@ public class NameRepositoryTest {
     @Test
     public void clear() {
         String[] data = {"Erik Svensson", "Sofia Örnberg"};
+        NameRepository.setNames(data);
         int expectedSize = 0;
 
         NameRepository.clear();
